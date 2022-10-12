@@ -1,0 +1,12 @@
+tmp
+__pycache__
+.DS_Store
+.idea
+.vscode
+.python-version
+.ipynb_checkpoints
+*.egg-info
+.cache
+.env
+.git
+k8s

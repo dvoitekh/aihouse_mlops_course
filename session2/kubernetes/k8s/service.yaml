@@ -1,0 +1,15 @@
+# different kinds of k8s services: https://cloud.google.com/kubernetes-engine/docs/how-to/exposing-apps
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: model-service-svc
+  namespace: default
+spec:
+  type: LoadBalancer
+  selector:
+    app: model-service
+  ports:
+  - protocol: TCP
+    port: 5000
+    targetPort: 5000
