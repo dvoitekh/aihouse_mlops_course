@@ -2,11 +2,11 @@ import os
 import numpy as np
 
 from flask import Flask, request, jsonify
-from model.inference import Model
+from src.inference import TextModel
 
 
 app = Flask(__name__)
-model = Model()
+model = TextModel()
 
 
 @app.route("/api/v1/healthcheck", methods = ["GET"])

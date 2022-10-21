@@ -36,3 +36,18 @@ kubectl apply -f k8s/
 ```bash
 kubectl port-forward svc/model-service-svc 5000:5000
 ```
+
+
+### k6 stress-testing
+
+1. Install [k6 client](https://github.com/grafana/k6).
+
+2. Perform stress-testing of the service via the following command
+
+```bash
+k6 run -u 2 -i 100 k6.js
+```
+
+
+
+
