@@ -26,6 +26,9 @@ share/python-wheels/
 .installed.cfg
 *.egg
 MANIFEST
+session4/feast/feature_store/data/
+session4/feast/feature_store/registry.pb
+session4/feast/feature_store/*.parquet
 
 # PyInstaller
 #  Usually these files are written by a python script from a template

@@ -1,0 +1,16 @@
+project: housing_dataset
+
+# local
+registry: registry.pb
+provider: local
+
+# aws
+# registry: s3://data/feast/registry.pb
+# provider: aws
+
+offline_store:
+    type: file
+online_store:
+    type: redis
+    connection_string: "localhost:6379"
+    # connection_string: "helm-redis-master.default.svc:6379"

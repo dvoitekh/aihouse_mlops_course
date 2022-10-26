@@ -1,0 +1,2 @@
+feast[aws,redis]==0.26.0
+protobuf==4.21.8
