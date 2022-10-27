@@ -1,12 +1,12 @@
 project: housing_dataset
 
 # local
-registry: registry.pb
-provider: local
+# registry: registry.pb
+# provider: local
 
 # aws
-# registry: s3://data/feast/registry.pb
-# provider: aws
+registry: s3://data/feast/registry.pb
+provider: aws
 
 offline_store:
     type: file

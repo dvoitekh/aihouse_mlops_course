@@ -39,5 +39,12 @@ Run Feast UI:
 
 ```bash
 cd feature_store
-feast ui -p 8000
+FEAST_S3_ENDPOINT_URL=http://localhost:9000 AWS_ACCESS_KEY_ID=minioadmin AWS_SECRET_ACCESS_KEY=minioadmin feast ui -p 8000
+```
+
+Run Feast Feature Server:
+
+```bash
+cd feature_store
+FEAST_S3_ENDPOINT_URL=http://localhost:9000 AWS_ACCESS_KEY_ID=minioadmin AWS_SECRET_ACCESS_KEY=minioadmin feast serve -p 8001
 ```
