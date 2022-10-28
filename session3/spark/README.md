@@ -6,7 +6,6 @@ This tutorial describes the process of configuring Spark in Kubernetes via Spark
 
 The following steps are based on the [official Spark on Kubernetes overview](https://spark.apache.org/docs/3.2.1/running-on-kubernetes.html)
 
-
 1. Download and unpack Apache Spark from [the official page](https://spark.apache.org/downloads.html). For instance:
 
 ```bash
@@ -71,14 +70,12 @@ export K8S_SERVER=$(kubectl config view --output=jsonpath='{.clusters[].cluster.
     kubectl apply -f spark-service-account.yaml
     ```
 
-
 3. Now, we need to build a Docker image for our job:
 
     ```bash
     eval $(minikube docker-env)
     docker build -t spark-job:latest .
     ```
-
 
 4. Deploy the job:
 
@@ -91,4 +88,5 @@ export K8S_SERVER=$(kubectl config view --output=jsonpath='{.clusters[].cluster.
     ```bash
     kubectl get po | grep spark-job
     kubectl logs -f spark-job-driver
+    AWS_ACCESS_KEY_ID=minioadmin AWS_SECRET_ACCESS_KEY=minioadmin aws --endpoint-url http://localhost:9000 s3 ls s3://data/output/
     ```
