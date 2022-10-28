@@ -6,14 +6,27 @@ This tutorial describes the process of configuring Spark in Kubernetes via Spark
 
 The following steps are based on the [official Spark on Kubernetes overview](https://spark.apache.org/docs/3.2.1/running-on-kubernetes.html)
 
-1. Download and unpack Apache Spark from [the official page](https://spark.apache.org/downloads.html). For instance:
+1. Make sure that you have git-lfs installed and that you pulled all the files:
+
+```bash
+sudo apt-get install git-lfs
+git lfs pull
+```
+
+2. Install aws-cli:
+
+```bash
+pip install awscli==1.26.4
+```
+
+3. Download and unpack Apache Spark from [the official page](https://spark.apache.org/downloads.html). For instance:
 
 ```bash
 wget https://dlcdn.apache.org/spark/spark-3.3.1/spark-3.3.1-bin-hadoop3.tgz
 tar -xvf spark-3.3.1-bin-hadoop3.tgz
 ```
 
-2. Build Docker images (Spark + PySpark) that will be used as a base to submit Spark jobs to k8s. This command will also add the image to the Minikube context:
+3. Build Docker images (Spark + PySpark) that will be used as a base to submit Spark jobs to k8s. This command will also add the image to the Minikube context:
 
 ```bash
 eval $(minikube docker-env)
@@ -22,7 +35,7 @@ cd spark-3.3.1-bin-hadoop3
 docker images | grep spark
 ```
 
-3. Now, you're ready to submit Spark tasks to k8s. For this you need to get the IP of the k8s API server and then, for instance, start the spark shell (you can make sure that resources are allocated by opening Minikube dashboard):
+4. Now, you're ready to submit Spark tasks to k8s. For this you need to get the IP of the k8s API server and then, for instance, start the spark shell (you can make sure that resources are allocated by opening Minikube dashboard):
 
 ```bash
 export K8S_SERVER=$(kubectl config view --output=jsonpath='{.clusters[].cluster.server}')
