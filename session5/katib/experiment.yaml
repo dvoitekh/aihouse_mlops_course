@@ -1,0 +1,62 @@
+apiVersion: kubeflow.org/v1beta1
+kind: Experiment
+metadata:
+  namespace: kubeflow-user-example-com
+  name: pytorch-facial-emotions
+spec:
+  parallelTrialCount: 3
+  maxTrialCount: 6
+  maxFailedTrialCount: 3
+  objective:
+    type: minimize
+    goal: 0.01
+    objectiveMetricName: val_loss
+  algorithm:
+    algorithmName: random
+  parameters:
+    - name: lr
+      parameterType: double
+      feasibleSpace:
+        min: "0.001"
+        max: "0.01"
+    - name: momentum
+      parameterType: double
+      feasibleSpace:
+        min: "0.5"
+        max: "0.9"
+  trialTemplate:
+    primaryContainerName: pytorch
+    trialParameters:
+      - name: learningRate
+        description: Learning rate for the training model
+        reference: lr
+      - name: momentum
+        description: Momentum for the training model
+        reference: momentum
+    trialSpec:
+      apiVersion: batch/v1
+      kind: Job
+      spec:
+        template:
+          metadata:
+            annotations:
+              sidecar.istio.io/inject: "false"
+          spec:
+            containers:
+              - name: pytorch
+                image: katib-experiment:1.0
+                imagePullPolicy: Never
+                resources:
+                  requests:
+                    memory: "2000Mi"
+                    cpu: "1000m"
+                  limits:
+                    memory: "4000Mi"
+                    cpu: "2000m"
+                command:
+                  - "python3"
+                  - "/app/main.py"
+                  - "--epochs=1"
+                  - "--lr=${trialParameters.learningRate}"
+                  - "--momentum=${trialParameters.momentum}"
+            restartPolicy: Never

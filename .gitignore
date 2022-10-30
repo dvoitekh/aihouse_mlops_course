@@ -7,8 +7,10 @@ __pycache__/
 *.so
 
 # Distribution / packaging
+kaggle.json
 .Python
 build/
+images/
 develop-eggs/
 dist/
 downloads/
