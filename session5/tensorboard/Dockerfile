@@ -8,18 +8,9 @@ RUN python3 -m pip --no-cache-dir install --upgrade \
 "pip>=20.3" \
 setuptools
 
-RUN python3 -m pip install --no-cache-dir \
-jupyterlab \
-matplotlib \
-pandas \
-torch \
-torchvision \
-tensorboard \
-scipy \
-imutils \
-opencv-python \
-tqdm \
-kaggle
+ADD requirements.txt /tmp/requirements.txt
+
+RUN python3 -m pip install --no-cache-dir -r /tmp/requirements.txt
 
 RUN apt-get install -y --no-install-recommends \
 zip \
