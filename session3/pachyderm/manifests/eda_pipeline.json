@@ -1,0 +1,24 @@
+{
+    "pipeline": {
+        "name": "housing_eda"
+    },
+    "description": "A pipeline that performs EDA for the housing dataset features",
+    "input": {
+        "pfs": {
+            "glob": "/",
+            "repo": "housing_extract_features"
+        }
+    },
+    "transform": {
+        "cmd": [
+            "python",
+            "/app/src/eda.py",
+            "--input",
+            "/pfs/housing_extract_features/",
+            "--output",
+            "/pfs/out/"
+        ],
+        "image": "housing-prices-pachyderm:0.0.1",
+        "image_pull_secrets": []
+    }
+}

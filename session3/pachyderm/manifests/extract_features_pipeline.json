@@ -1,0 +1,24 @@
+{
+    "pipeline": {
+        "name": "housing_extract_features"
+    },
+    "description": "A pipeline that preprocesses housing dataset",
+    "input": {
+        "pfs": {
+            "glob": "/",
+            "repo": "housing_data"
+        }
+    },
+    "transform": {
+        "cmd": [
+            "python",
+            "/app/src/extract_features.py",
+            "--input",
+            "/pfs/housing_data/",
+            "--output",
+            "/pfs/out/"
+        ],
+        "image": "housing-prices-pachyderm:0.0.1",
+        "image_pull_secrets": []
+    }
+}
