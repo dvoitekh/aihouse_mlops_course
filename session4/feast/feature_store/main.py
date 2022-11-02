@@ -1,17 +1,18 @@
+import os
 from feast import Entity, FeatureService, FeatureView, Field, FileSource, PushSource, ValueType
 from feast.types import Float32, Int64
 
 
 main_source = FileSource(
     path="s3://data/house_dataset_main.parquet",
-    s3_endpoint_override="http://localhost:9000",
+    s3_endpoint_override=os.environ["INTERNAL_FEAST_S3_ENDPOINT_URL"],
     timestamp_field="EventTimestamp",
     created_timestamp_column="Created",
 )
 
 lat_lon_source = FileSource(
     path="s3://data/house_dataset_lat_lon.parquet",
-    s3_endpoint_override="http://localhost:9000",
+    s3_endpoint_override=os.environ["INTERNAL_FEAST_S3_ENDPOINT_URL"],
     timestamp_field="EventTimestamp",
     created_timestamp_column="Created",
 )

@@ -1,0 +1,17 @@
+project: housing_dataset
+
+# local
+# registry: registry.pb
+# provider: local
+
+# aws
+registry: {{ registry_url }}
+provider: aws
+
+offline_store:
+    type: file
+online_store:
+    type: redis
+    connection_string: {{ redis_url }}
+    # connection_string: "localhost:6379"
+    # connection_string: "helm-redis-master.default.svc:6379"

@@ -28,9 +28,6 @@ share/python-wheels/
 .installed.cfg
 *.egg
 MANIFEST
-session4/feast/feature_store/data/
-session4/feast/feature_store/registry.pb
-session4/feast/feature_store/*.parquet
 
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -132,3 +129,10 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+session4/feast/feature_store/data/
+session4/feast/feature_store/registry.pb
+session4/feast/feature_store/*.parquet
+session4/feast/feature_store/feature_store.yaml
+session6/kfp/components/*.yaml
+*.zip
