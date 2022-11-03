@@ -4,10 +4,8 @@ from dotenv import load_dotenv
 from src.utils import get_kfp_client
 
 
-load_dotenv()
-
-
 if __name__ == '__main__':
+    load_dotenv()
     experiment_name = os.environ["KUBEFLOW_EXPERIMENT_NAME"]
     pipeline_name = os.environ["KUBEFLOW_PIPELINE_NAME"]
     pipeline_version = os.environ["KUBEFLOW_PIPELINE_VERSION"]
