@@ -1,5 +1,9 @@
 # Feast Feature Store
 
+## Prerequisites
+
+Ensure that you have Minio configured, port-forwarded, and populated with data [according the session3 spark tutorial](../../session3/spark/README.md).
+
 
 ## Install Redis via Helm chart:
 
