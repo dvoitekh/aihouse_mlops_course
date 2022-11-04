@@ -32,3 +32,10 @@ python3 pipeline.py
 4. Navigate to Kubeflow UI to see job runs:
 
 http://localhost:8080/_/pipeline/?ns=kubeflow-user-example-com#/runs
+
+
+5. Access artifacts in Minio http://localhost:9000/minio/mlpipeline (minio/minio123):
+
+```bash
+kubectl port-forward svc/minio-service 9000:9000 -n kubeflow
+```
