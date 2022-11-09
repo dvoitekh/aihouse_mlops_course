@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  feast_apply:
+  kfp_apply:
     runs-on: ubuntu-latest
     steps:
       - name: Setup Python
@@ -16,6 +16,12 @@ jobs:
           python-version: "3.7"
           architecture: x64
 
+      - name: Login to Docker Hub
+        uses: docker/login-action@v2
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
       - uses: actions/checkout@v2
       - name: Install packages
         run: |
@@ -24,6 +30,8 @@ jobs:
       - name: Build and deploy a new pipeline version
         env:
           KUBEFLOW_HOST: ${{ secrets.KUBEFLOW_HOST }}
+          EXECUTOR_DOCKER_IMAGE_PULL_POLICY: Always
+          PUSH_DOCKER_IMAGE: true
         run: |
           cd session6/kfp
           cp .env.example .env

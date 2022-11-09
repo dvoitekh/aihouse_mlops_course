@@ -130,7 +130,9 @@ if __name__ == '__main__':
 
     # 1. build docker image
     subprocess.run(["docker", "build", "-t", docker_image_name, "."])
-    # # Optionally: Push Docker image to remote registry
+    # Optionally: Push Docker image to remote registry
+    if os.environ.get("PUSH_DOCKER_IMAGE") == "true":
+        subprocess.run(["docker", "push", docker_image_name])
 
     # 2. compile the pipeline
     # mode=kfp.dsl.PipelineExecutionMode.V2_COMPATIBLE
