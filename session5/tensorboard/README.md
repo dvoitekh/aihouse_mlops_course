@@ -9,7 +9,7 @@ eval $(minikube docker-env)
 docker build -t kubeflow-jupyter-custom:1.0 .
 ```
 
-2. Run this custom Docker image from the Kubeflow Jupyter dashboard (P.S. do not forget to use PullPolicy='Never')
+2. Run this custom Docker image from the Kubeflow Jupyter dashboard (P.S. do not forget to use PullPolicy='Never'). Request at least 1 CPU core. Increase CPU request further if you experience kernel restarts with (FacialEmotionsTrainingTensorboard.ipynb)[./FacialEmotionsTrainingTensorboard.ipynb] notebook
 
 3. Copy (BasicTensorboard.ipynb)[./BasicTensorboard.ipynb] notebook to the launched JupyterLab
 
