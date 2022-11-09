@@ -1,0 +1,30 @@
+name: Deploy KFP pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  feast_apply:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Setup Python
+        id: setup-python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.7"
+          architecture: x64
+
+      - uses: actions/checkout@v2
+      - name: Install packages
+        run: |
+          cd session6/kfp
+          pip install -r requirements.txt
+      - name: Build and deploy a new pipeline version
+        env:
+          KUBEFLOW_HOST: ${{ secrets.KUBEFLOW_HOST }}
+        run: |
+          cd session6/kfp
+          cp .env.example .env
+          python pipeline.py
