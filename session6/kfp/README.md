@@ -61,6 +61,8 @@ Start the HTTP tunnel for istio gateway:
 ngrok http 8080
 ```
 
-Get the HTTPS link from the previous command's output and add it to your GitHub repo secrets as `KUBEFLOW_HOST`: the url looks like this https://github.com/dvoitekh/aihouse_mlops_course/settings/secrets/actions.
+Take a look at [the GitHub workflow file](../../.github/workflows/deploy_pipeline.yaml) and adjust it if needed.
 
-Take a look at [the workflow file](../../.github/workflows/deploy_pipeline.yaml) and adjust it if needed. Now, you are ready to push the code to your repo and check if the pipeline runs successfully!
+Get the HTTPS link from the previous command's output and add it to your GitHub repo secrets as `KUBEFLOW_HOST`: the url looks like this https://github.com/dvoitekh/aihouse_mlops_course/settings/secrets/actions. Also add your `DOCKERHUB_USERNAME` and `DOCKERHUB_TOKEN` variables.
+
+Now, you are ready to push the code to your repo and check if the pipeline runs successfully!

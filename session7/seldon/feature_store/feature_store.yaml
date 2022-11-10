@@ -1,0 +1,10 @@
+project: housing_dataset
+
+registry: s3://data/feast/prod/registry.pb
+provider: aws
+
+offline_store:
+    type: file
+online_store:
+    type: redis
+    connection_string: helm-redis-master.default.svc:6379

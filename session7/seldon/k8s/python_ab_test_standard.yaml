@@ -1,0 +1,77 @@
+apiVersion: machinelearning.seldon.io/v1
+kind: SeldonDeployment
+metadata:
+  name: housing-standard-ab-test
+  namespace: seldon
+spec:
+  annotations:
+    seldon.io/headless-svc: "true"
+  name: housing-standard-ab-test
+  predictors:
+    - componentSpecs:
+        - pdbSpec:
+            maxUnavailable: 1
+          spec:
+            containers:
+              - env:
+                - name: MODEL_NAME
+                  value: src.Preprocessor
+                image: seldon-base:1.0.0
+                imagePullPolicy: Never
+                name: preprocessor
+                resources:
+                  requests:
+                    memory: '100Mi'
+                    cpu: '100m'
+                  limits:
+                    memory: '500Mi'
+                    cpu: '500m'
+              - env:
+                - name: MODEL_NAME
+                  value: src.Regressor
+                image: seldon-base:1.0.0
+                imagePullPolicy: Never
+                name: model1
+                resources:
+                  requests:
+                    memory: '100Mi'
+                    cpu: '100m'
+                  limits:
+                    memory: '500Mi'
+                    cpu: '500m'
+              - env:
+                - name: MODEL_NAME
+                  value: src.Regressor
+                image: seldon-base:1.0.0
+                imagePullPolicy: Never
+                name: model2
+                resources:
+                  requests:
+                    memory: '100Mi'
+                    cpu: '100m'
+                  limits:
+                    memory: '500Mi'
+                    cpu: '500m'
+            terminationGracePeriodSeconds: 1
+      graph:
+        name: preprocessor
+        type: MODEL
+        children:
+        - name: ab-test
+          implementation: RANDOM_ABTEST
+          endpoint: {}
+          parameters:
+          - name: ratioA
+            value: '0.5'
+            type: FLOAT
+          children:
+            - name: model1
+              type: MODEL
+              children: []
+            - name: model2
+              type: MODEL
+              children: []
+      name: ab-test
+      replicas: 1
+      annotations:
+        predictor_version: v1

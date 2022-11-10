@@ -1,0 +1,123 @@
+apiVersion: machinelearning.seldon.io/v1
+kind: SeldonDeployment
+metadata:
+  name: housing-pipeline-combiner
+  namespace: seldon
+spec:
+  annotations:
+    seldon.io/headless-svc: "true"
+  name: housing-pipeline-combiner
+  predictors:
+    - componentSpecs:
+        - pdbSpec:
+            maxUnavailable: 1
+          spec:
+            containers:
+              - env:
+                - name: MODEL_NAME
+                  value: src.Preprocessor
+                - name: TRACING
+                  value: '1'
+                - name: JAEGER_AGENT_HOST
+                  value: jaeger-agent.jaeger.svc
+                - name: JAEGER_AGENT_PORT
+                  value: '5775'
+                - name: JAEGER_SAMPLER_TYPE
+                  value: const
+                - name: JAEGER_SAMPLER_PARAM
+                  value: '1'
+                image: seldon-base:1.0.0
+                imagePullPolicy: Never
+                name: preprocessor
+                resources:
+                  requests:
+                    memory: '100Mi'
+                    cpu: '100m'
+                  limits:
+                    memory: '500Mi'
+                    cpu: '500m'
+              - env:
+                - name: MODEL_NAME
+                  value: src.Regressor
+                - name: TRACING
+                  value: '1'
+                - name: JAEGER_AGENT_HOST
+                  value: jaeger-agent.jaeger.svc
+                - name: JAEGER_AGENT_PORT
+                  value: '5775'
+                - name: JAEGER_SAMPLER_TYPE
+                  value: const
+                - name: JAEGER_SAMPLER_PARAM
+                  value: '1'
+                image: seldon-base:1.0.0
+                imagePullPolicy: Never
+                name: regressor
+                resources:
+                  requests:
+                    memory: '100Mi'
+                    cpu: '100m'
+                  limits:
+                    memory: '500Mi'
+                    cpu: '500m'
+              - env:
+                - name: MODEL_NAME
+                  value: src.OutlierDetector
+                - name: TRACING
+                  value: '1'
+                - name: JAEGER_AGENT_HOST
+                  value: jaeger-agent.jaeger.svc
+                - name: JAEGER_AGENT_PORT
+                  value: '5775'
+                - name: JAEGER_SAMPLER_TYPE
+                  value: const
+                - name: JAEGER_SAMPLER_PARAM
+                  value: '1'
+                image: seldon-base:1.0.0
+                imagePullPolicy: Never
+                name: outlier-detector
+                resources:
+                  requests:
+                    memory: '100Mi'
+                    cpu: '100m'
+                  limits:
+                    memory: '500Mi'
+                    cpu: '500m'
+              - env:
+                - name: MODEL_NAME
+                  value: src.Combiner
+                - name: TRACING
+                  value: '1'
+                - name: JAEGER_AGENT_HOST
+                  value: jaeger-agent.jaeger.svc
+                - name: JAEGER_AGENT_PORT
+                  value: '5775'
+                - name: JAEGER_SAMPLER_TYPE
+                  value: const
+                - name: JAEGER_SAMPLER_PARAM
+                  value: '1'
+                image: seldon-base:1.0.0
+                imagePullPolicy: Never
+                name: combiner
+                resources:
+                  requests:
+                    memory: '100Mi'
+                    cpu: '100m'
+                  limits:
+                    memory: '500Mi'
+                    cpu: '500m'
+            terminationGracePeriodSeconds: 1
+      graph:
+        name: preprocessor
+        type: MODEL
+        children:
+        - name: combiner
+          type: COMBINER
+          children:
+          - name: regressor
+            type: MODEL
+          - name: outlier-detector
+            type: MODEL
+      name: combiner
+      replicas: 1
+      labels:
+        version: v1

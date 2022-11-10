@@ -1,0 +1,35 @@
+apiVersion: machinelearning.seldon.io/v1
+kind: SeldonDeployment
+metadata:
+  name: housing-regressor-sklearn
+  namespace: seldon
+spec:
+  predictors:
+  - componentSpecs:
+    - spec:
+        containers:
+          - name: regressor
+            image: seldonio/sklearnserver:1.14.1
+            resources:
+              requests:
+                memory: '100Mi'
+                cpu: '100m'
+              limits:
+                memory: '200Mi'
+                cpu: '200m'
+    name: default
+    replicas: 1
+    graph:
+      children: []
+      name: regressor
+      implementation: SKLEARN_SERVER
+      # it scans for the model.joblib file in the provided directory
+      modelUri: s3://data/models/
+      storageInitializerImage: seldonio/rclone-storage-initializer:1.14.0-dev
+      envSecretRefName: seldon-init-container-secret
+      parameters:
+        - name: method
+          type: STRING
+          value: predict
+    labels:
+      version: v1
