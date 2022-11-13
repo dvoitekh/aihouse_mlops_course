@@ -376,7 +376,7 @@ curl -X POST \
 
 See how Seldon balances the traffic between 2 models.
 
-8. Send feedback to the model:
+### Send feedback
 
 ```bash
 curl -X POST \
@@ -387,7 +387,7 @@ curl -X POST \
 
 See [this reference](https://github.com/SeldonIO/seldon-core/blob/6c7a322267af2769df097b8546aaaf40c18c4794/components/routers/epsilon-greedy/EpsilonGreedy.py#L119) how to implement a feedback loop.
 
-7. Tests
+### Model, unit, and integration tests
 
 Install the project as a Python package:
 
