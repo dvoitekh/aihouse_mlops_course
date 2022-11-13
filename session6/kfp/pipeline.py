@@ -6,7 +6,7 @@ from dotenv import load_dotenv
 
 from kfp.components import create_component_from_func
 
-from src.utils import get_kfp_client, generate_env_secret_variable
+from utils import get_kfp_client, generate_env_secret_variable
 
 from components.notification import notification
 from components.dataset_generation import dataset_generation
@@ -74,8 +74,8 @@ def pipeline(validation_dataset_fraction: float = 0.1, random_seed: int = 1):
         dataset_generation_step = dataset_generation_op(validation_dataset_fraction, random_seed) \
                                                          .add_resource_request('memory', '500Mi') \
                                                          .add_resource_request('cpu', '500m') \
-                                                         .add_resource_limit('memory', '500Mi') \
-                                                         .add_resource_limit('cpu', '500m') \
+                                                         .add_resource_limit('memory', '1000Mi') \
+                                                         .add_resource_limit('cpu', '1000m') \
                                                          .set_image_pull_policy(docker_image_pull_policy)
 
         train_eda_step = eda_op(dataset_generation_step.outputs['train_dataset']).add_resource_request('memory', '500Mi') \
