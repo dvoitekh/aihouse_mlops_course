@@ -1,7 +1,7 @@
 import os
 
 from dotenv import load_dotenv
-from src.utils import get_kfp_client
+from utils import get_kfp_client
 
 
 if __name__ == '__main__':
