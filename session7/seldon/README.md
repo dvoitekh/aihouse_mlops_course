@@ -38,7 +38,7 @@ kubectl label namespace seldon serving.kubeflow.org/inferenceservice=enabled
 Deploy a sample Seldon classifier:
 
 ```bash
-kubectl apply -f k8s/mock_classifier.yaml
+kubectl apply -f k8s/sample_classifier.yaml
 ```
 
 Assuming that you already have svc/istio-ingressgateway forwarded to your local machine on port 8080 you can now perform requests.
