@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<!--
+  https://izy.codes/tensorflowjs-webcam-image-classification-en/
+  https://codelabs.developers.google.com/codelabs/tensorflowjs-object-detection/
+-->
+
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest"></script>
+    <!--
+      Import @tensorflow/tfjs-tflite
+
+      Note that we need to explicitly load dist/tf-tflite.min.js so that it can
+      locate WASM module files from their default location (dist/).
+    -->
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-tflite/dist/tf-tflite.min.js"></script>
+</head>
+
+<body>
+</body>
+    <h1>TFLite Classification</h1>
+
+    <p>Wait for the model to load before clicking the button to enable the webcam - at which point it will become visible to
+      use.</p>
+
+    <section id="demos" class="invisible">
+      <button id="webcamButton">Enable Webcam</button>
+      <button id="captureButton">Capture and Classify</button>
+      <div id="liveView" class="camView">
+        <video id="webcam" autoplay muted width="640" height="480"></video>
+      </div>
+    </section>
+
+    <p id="predictions">
+    </div>
+
+    <script src="./index.js"></script>
+</html>

@@ -135,4 +135,5 @@ session4/feast/feature_store/registry.pb
 session4/feast/feature_store/*.parquet
 session4/feast/feature_store/feature_store.yaml
 session6/kfp/specs/*.yaml
+session9/models/
 *.zip
