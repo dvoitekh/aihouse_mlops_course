@@ -1,16 +1,5 @@
-FROM python:3.7.12
+FROM python:3.8.12
 WORKDIR /app
-
-RUN apt update && apt install -y libjemalloc-dev libboost-dev \
-                       libboost-filesystem-dev \
-                       libboost-system-dev \
-                       libboost-regex-dev \
-                       autoconf \
-                       flex \
-                       bison \
-                       ffmpeg \
-                       libsm6 \
-                       libxext6
 
 # Install python packages
 COPY requirements.txt requirements.txt
